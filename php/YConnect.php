@@ -1,4 +1,10 @@
 <?php
+/**
+ * Yahoo! JAPAN YConnect(OAuth2.0 + OpenID Connect) PHP Sample
+ *
+ * Explicit Grant Flow
+ * http://developer.yahoo.co.jp/yconnect/
+ */
 class YConnect {
 
 	protected $client_id;

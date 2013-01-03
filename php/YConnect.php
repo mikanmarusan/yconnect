@@ -16,13 +16,13 @@ class YConnect {
 
 	public function authorization($redirect_uri,
 	                              $response_type = 'code',
-								  $scope = 'openid profile email address') {
+	                              $scope = 'openid profile email address') {
 		$params = array(
-				'response_type' => $response_type,
-				'client_id'     => $this->client_id,
-				'redirect_uri'  => $redirect_uri,
-				'scope'         => $scope
-				);
+			'response_type' => $response_type,
+			'client_id'     => $this->client_id,
+			'redirect_uri'  => $redirect_uri,
+			'scope'         => $scope
+		);
 
 		$uri = self::AUTHORIZATION_URI . '?' . http_build_query($params, '', '&');
 		header("Location: $uri");
@@ -30,43 +30,43 @@ class YConnect {
 
 	public function token($code, $redirect_uri) {
 		$params = array( 
-				'grant_type'   => 'authorization_code',
-				'code'         => $code,
-				'redirect_uri' => $redirect_uri
-				);
+			'grant_type'   => 'authorization_code',
+			'code'         => $code,
+			'redirect_uri' => $redirect_uri
+		);
 
 		$headers = array(
-				'Content-type: application/x-www-form-urlencoded',
-				'Authorization: Basic ' . base64_encode($this->client_id . ':' . $this->client_secret),
-				);
+			'Content-type: application/x-www-form-urlencoded',
+			'Authorization: Basic ' . base64_encode($this->client_id . ':' . $this->client_secret),
+		);
 
 		$response =  self::http_request(self::TOKEN_URI,
 		                                'POST',
-										$params,
-										$headers);
+		                                $params,
+		                                $headers);
 		return json_decode($response, true);
 	}
 
 	public function userinfo($access_token) {
 		$params = array(
-				'schema' => 'openid'
-				);
+			'schema' => 'openid'
+		);
 
 		$headers = array(
-				'Authorization: Bearer ' . $access_token,
-				);
+			'Authorization: Bearer ' . $access_token,
+		);
 
 		$response = self::http_request(self::USERINFO_URI,
 		                               'GET',
-									   $params,
-									   $headers);
+		                               $params,
+		                               $headers);
 		return json_decode($response, true);
 	}
 
 	public static function http_request($uri,
-			$scheme,
-			$params,
-			$headers) {
+	                                    $scheme,
+	                                    $params,
+	                                    $headers) {
 
 		$query = http_build_query($params, '', '&');
 

@@ -31,7 +31,7 @@ class YConnectExplicit:
 		    'client_id':  self.client_id,
 		    'redirect_uri': redirect_uri,
 		    'scope': scope,
-        }
+		}
 
 		return YConnectExplicit._AUTHORIZATION_URI + '?' + urllib.urlencode(params)
 	
@@ -40,7 +40,7 @@ class YConnectExplicit:
 		    'grant_type': 'authorization_code',
 		    'code': code,
 		    'redirect_uri': redirect_uri,
-        }
+		}
 
 		headers = {
 		    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 
@@ -60,7 +60,7 @@ class YConnectExplicit:
 	def userinfo(self, access_token):
 		params = {
 		    'schema': 'openid',
-        }
+		}
 
 		headers = {
 		    'Authorization': 'Bearer ' + access_token
